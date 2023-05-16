@@ -9,6 +9,7 @@ import {
 
 import { Loading } from "@components/Loading"
 import { Routes } from "@routes/index"
+import { Home } from "@screens/Home"
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold })
