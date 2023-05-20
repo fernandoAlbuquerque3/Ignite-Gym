@@ -5,8 +5,8 @@ import {
 
 import { Home } from "@screens/Home"
 import { History } from "@screens/History"
-import { Profile } from "@screens/Profile"
 import { Exercise } from "@screens/Exercise"
+import { Profile } from "@screens/Profile"
 
 type AppRoutes = {
   home: undefined
@@ -24,6 +24,7 @@ export function AppRoutes() {
     <Navigator
       screenOptions={{
         headerShown: false,
+        tabBarShowLabel: false,
       }}
     >
       <Screen name="home" component={Home} />
