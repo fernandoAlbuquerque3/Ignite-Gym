@@ -1,5 +1,5 @@
-import { VStack, Image, Text, Center, Heading, ScrollView } from "native-base"
 import { useNavigation } from "@react-navigation/native"
+import { VStack, Image, Text, Center, Heading, ScrollView } from "native-base"
 
 import LogoSvg from "@assets/logo.svg"
 import BackgroundImg from "@assets/background.png"
