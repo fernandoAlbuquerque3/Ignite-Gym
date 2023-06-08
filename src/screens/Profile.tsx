@@ -18,20 +18,33 @@ import { Button } from "@components/Button"
 const PHOTO_SIZE = 33
 
 export function Profile() {
-  const [photoIsLoading, setIsLoading] = useState(false)
+  const [photoIsLoading, setPhotoIsLoading] = useState(false)
+  const [userPhoto, setUserPhoto] = useState(
+    "https://github.com/fernandoAlbuquerque3.png"
+  )
 
   async function handleUserPhotoSelect() {
-    const photoSelected = await ImagePicker.launchImageLibraryAsync({
-      mediaTypes: ImagePicker.MediaTypeOptions.Images,
-      quality: 1,
-      aspect: [4, 4],
-      allowsEditing: true,
-    })
+    setPhotoIsLoading(true)
+    try {
+      const photoSelected = await ImagePicker.launchImageLibraryAsync({
+        mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        quality: 1,
+        aspect: [4, 4],
+        allowsEditing: true,
+      })
+  
+      if (photoSelected.canceled) {
+        return
+      }
 
-    console.log(photoSelected)
+      if(photoSelected.assets[0].uri){
+        setUserPhoto(photoSelected.assets[0].uri)
 
-    if (photoSelected.canceled) {
-      return
+      }
+    } catch (error) {
+      console.log(error);
+    }finally {
+      setPhotoIsLoading(false);
     }
   }
 
@@ -52,7 +65,7 @@ export function Profile() {
           ) : (
             <UserPhoto
               source={{
-                uri: "https://instagram.fjdo10-1.fna.fbcdn.net/v/t51.2885-19/350239529_648198526780974_3904291298932139482_n.jpg?stp=dst-jpg_s150x150&_nc_ht=instagram.fjdo10-1.fna.fbcdn.net&_nc_cat=106&_nc_ohc=Q_SjwvijdmEAX8XORs_&edm=AOQ1c0wBAAAA&ccb=7-5&oh=00_AfBVZ7w8dDcbBvQaISsFjfe22NDvMUf9mUh-v2dWAfX1CA&oe=64821A7E&_nc_sid=f70a57",
+                uri: userPhoto,
               }}
               alt="foto de perfil do usuário"
               size={PHOTO_SIZE}
