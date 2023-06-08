@@ -8,6 +8,7 @@ import {
   Heading,
 } from "native-base"
 import { TouchableOpacity } from "react-native"
+import * as ImagePicker from 'expo-image-picker';
 
 import { ScreenHeader } from "@components/ScreenHeader"
 import { Input } from "@components/Input"
@@ -18,6 +19,10 @@ const PHOTO_SIZE = 33
 
 export function Profile() {
   const [photoIsLoading, setIsLoading] = useState(false)
+
+  async function handleUserPhotoSelect() {
+    await ImagePicker.launchImageLibraryAsync() //acessar album
+  }
 
   return (
     <VStack flex={1}>
@@ -43,7 +48,7 @@ export function Profile() {
             />
           )}
 
-          <TouchableOpacity>
+          <TouchableOpacity onPress={handleUserPhotoSelect}>
             <Text
               color={"green.500"}
               fontWeight={"bold"}
