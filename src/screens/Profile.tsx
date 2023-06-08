@@ -8,7 +8,7 @@ import {
   Heading,
 } from "native-base"
 import { TouchableOpacity } from "react-native"
-import * as ImagePicker from 'expo-image-picker';
+import * as ImagePicker from "expo-image-picker"
 
 import { ScreenHeader } from "@components/ScreenHeader"
 import { Input } from "@components/Input"
@@ -21,7 +21,12 @@ export function Profile() {
   const [photoIsLoading, setIsLoading] = useState(false)
 
   async function handleUserPhotoSelect() {
-    await ImagePicker.launchImageLibraryAsync() //acessar album
+    await ImagePicker.launchImageLibraryAsync({
+      mediaTypes: ImagePicker.MediaTypeOptions.Images,
+      quality: 1,
+      aspect: [4, 4],
+      allowsEditing: true,
+    })
   }
 
   return (
