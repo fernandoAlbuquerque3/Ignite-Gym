@@ -9,6 +9,7 @@ import {
 } from "native-base"
 import { TouchableOpacity } from "react-native"
 import * as ImagePicker from "expo-image-picker"
+import * as FileSystem from "expo-file-system"
 
 import { ScreenHeader } from "@components/ScreenHeader"
 import { Input } from "@components/Input"
@@ -38,6 +39,10 @@ export function Profile() {
       }
 
       if (photoSelected.assets[0].uri) {
+        const PhotoInfo = await FileSystem.getInfoAsync(
+          photoSelected.assets[0].uri
+        )
+        console.log(PhotoInfo)
         setUserPhoto(photoSelected.assets[0].uri)
       }
     } catch (error) {
