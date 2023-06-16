@@ -10,14 +10,14 @@ import { Input } from "@components/Input"
 import { Button } from "@components/Button"
 
 type FormDataProps = {
-  name: string
-  email: string
-  password: string
-  password_confirm: string
+  name: string;
+  email: string;
+  password: string;
+  password_confirm: string;
 }
 
 export function SignUp() {
-  const { control, handleSubmit } = useForm<FormDataProps>()
+  const { control, handleSubmit, formState: {errors} } = useForm<FormDataProps>()
 
   const navigation = useNavigation()
 
@@ -69,10 +69,15 @@ export function SignUp() {
           <Controller
             control={control}
             name="name"
+            rules={{
+              required: "Informe o nome.",
+            }}
             render={({ field: { onChange, value } }) => (
               <Input placeholder="Nome" onChangeText={onChange} value={value} />
             )}
           />
+
+          <Text color={"white"}>{errors.name?.message}</Text>
 
           <Controller
             control={control}
