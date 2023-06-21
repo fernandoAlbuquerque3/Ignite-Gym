@@ -21,8 +21,11 @@ type FormDataProps = {
 const schema = yup.object({
   name: yup.string().required("Informe o nome"),
   email: yup.string().required("Informe o e-mail").email("E-mail inválido"),
-  password: yup.string(),
-  password_confirm: yup.string()
+  password: yup
+    .string()
+    .required("Informe a senha")
+    .min(8, "A senha deve ter pelo menos 8 dígitos "),
+  password_confirm: yup.string(),
 })
 
 export function SignUp() {
@@ -82,7 +85,6 @@ export function SignUp() {
           <Controller
             control={control}
             name="name"
-            
             render={({ field: { onChange, value } }) => (
               <Input
                 placeholder="Nome"
@@ -117,6 +119,7 @@ export function SignUp() {
                 secureTextEntry
                 onChangeText={onChange}
                 value={value}
+                errorMessage={errors.password?.message}
               />
             )}
           />
