@@ -18,14 +18,17 @@ type FormDataProps = {
   password_confirm: string
 }
 
-const schema = yup.object({
+const signUpSchema = yup.object({
   name: yup.string().required("Informe o nome"),
   email: yup.string().required("Informe o e-mail").email("E-mail inválido"),
   password: yup
     .string()
     .required("Informe a senha")
     .min(8, "A senha deve ter pelo menos 8 dígitos "),
-  password_confirm: yup.string(),
+  password_confirm: yup
+    .string()
+    .required("Confirme a senha")
+    .oneOf([yup.ref("password")], "A confirmação da senha não confere."), //.oneOf([yup.ref("password"), null], "A confirmação da senha não confere."),
 })
 
 export function SignUp() {
@@ -33,7 +36,7 @@ export function SignUp() {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormDataProps>({ resolver: yupResolver(schema) })
+  } = useForm<FormDataProps>({ resolver: yupResolver(signUpSchema) })
 
   const navigation = useNavigation()
 
@@ -47,7 +50,7 @@ export function SignUp() {
     password,
     password_confirm,
   }: FormDataProps) {
-    console.log(name, email, password, password_confirm)
+    console.log(name, email, password, password_confirm, errors)
   }
 
   return (
@@ -135,6 +138,7 @@ export function SignUp() {
                 value={value}
                 onSubmitEditing={handleSubmit(handleSignUp)}
                 returnKeyType="send"
+                errorMessage={errors.password_confirm?.message}
               />
             )}
           />
